@@ -128,6 +128,7 @@ INSTALLED_APPS = (
     'registration',
     'payments',
     'manifesto',
+    'localflavor',
     'app',
     'account',
 )
