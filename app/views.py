@@ -9,7 +9,17 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 
 from payments.models import Customer
+from .models import Map
+
 from annoying.decorators import render_to, ajax_request
+
+from django.views.generic import DetailView
+
+
+class MapView(DetailView):
+    model = Map
+    template_name = "us_states.html"
+
 
 @render_to('index.html')
 def index(request):

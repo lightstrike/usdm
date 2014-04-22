@@ -43,9 +43,10 @@ $(document).ready(function() {
       $(el).data('text', el.id);
     });
 
-    function showStateData(stateText) {
+    function showStateData(stateData) {
       $('.message').show(); 
-      $('.message span').text(stateText);
+      $('.message .state-name').text(stateData.data('state'));
+      $('.message .data-value').text(stateData.data('value'));
     }
     
     function hideStateData() {
@@ -64,9 +65,22 @@ $(document).ready(function() {
         });
     }
 
-    // $('.state').hover(showStateData, hideStateData);
+    /*
+    $('.state').hover(
+        function() {
+            var stateText = $(this).data('text');
+            showStateData(stateText); 
+        },
+        function() {
+            hideStateData(); 
+        }
+    );
+    */
+
     $('.state').on('click', function() {
-        showStateData($(this).data('text'));
+        var stateData = $('.data-container').find(
+                      '[data-state=' + $(this).data('text') + ']');
+        showStateData(stateData);
         var activeClass = 'active';
         var stateClasses = $(this).attr('class')
         if (stateClasses.indexOf(activeClass) != -1) {
@@ -82,7 +96,16 @@ $(document).ready(function() {
     <!--[if lt IE 8]>
     <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
     <![endif]-->
-    <div class="message" style="display: none;"><h1>Data: <span></span></h1></div>
+    <h1>{{ object.title }}</h1>
+    <div class="message" style="display: none;">
+      <h2>State: <span class="state-name"></span></h2>
+      <h3>Data: <span class="data-value"></span></h3> 
+    </div>
+    <div class="data-container" style="display: none;">
+      {% for state in object.data.all %}
+      <div data-state="{{ state.state.abbreviation }}" data-value="{{ state.data }}">{{ state.data }}</div>
+      {% endfor %}    
+    </div>
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="959" height="593">
 
 
